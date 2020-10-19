@@ -26,12 +26,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'joshdick/onedark.vim'
-" post install (yarn install | npm install) then load plugin only for editing supported files
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'dense-analysis/ale'
 
-" initialize plugin system
+
 call plug#end()
 
 xmap ga <plug>(easyalign)
@@ -164,3 +161,11 @@ let g:NERDToggleCheckAllLines = 1
 map <C-tab> :bn<CR>
 map <S-tab> :bp<CR>
 
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier', 'eslint'],
+\}
+
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+let g:ale_disable_lsp = 1
