@@ -169,3 +169,20 @@ let g:ale_fixers = {
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
 let g:ale_disable_lsp = 1
+
+highlight Search ctermbg=yellow ctermfg=black
+highlight IncSearch ctermbg=black ctermfg=yellow
+highlight MatchParen cterm=underline ctermbg=NONE ctermfg=NONE
+" 设置默认进行大小写不敏感查找
+set ignorecase
+" 如果有一个大写字母，则切换到大小写敏感查找
+set smartcase
+set hlsearch
+" 当光标一段时间保持不动了，就禁用高亮
+autocmd cursorhold * set nohlsearch
+" 当输入查找命令时，再启用高亮
+noremap n :set hlsearch<cr>n
+noremap N :set hlsearch<cr>N
+noremap / :set hlsearch<cr>/
+noremap ? :set hlsearch<cr>?
+noremap * *:set hlsearch<cr>
