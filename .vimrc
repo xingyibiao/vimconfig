@@ -23,6 +23,7 @@ Plug 'mhinz/vim-startify'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'joshdick/onedark.vim'
@@ -186,3 +187,14 @@ noremap N :set hlsearch<cr>N
 noremap / :set hlsearch<cr>/
 noremap ? :set hlsearch<cr>?
 noremap * *:set hlsearch<cr>
+
+" vim js
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+
+" coc go
+autocmd BufWritePre *.go :call CocAction('organizeImport')
