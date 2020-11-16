@@ -28,6 +28,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'joshdick/onedark.vim'
 Plug 'dense-analysis/ale'
+Plug 'voldikss/vim-floaterm'
+Plug 'easymotion/vim-easymotion'
+Plug 'terryma/vim-multiple-cursors'
 
 
 call plug#end()
@@ -126,8 +129,10 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 let g:NERDTreeGitStatusUseNerdFonts = 1 " you should install nerdfonts by yourself. default: 0
 let g:NERDTreeGitStatusShowIgnored = 1 " a heavy feature may cost much more time. default: 0
 let g:NERDTreeWinPos = "right"
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.DS_Store$', '\.git$'] " ignore files in nerd tree
 
-map <C-n> :NERDTreeToggle<CR>
+map <C-b> :NERDTreeToggle<CR>
 "auto close nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -191,10 +196,42 @@ noremap * *:set hlsearch<cr>
 " vim js
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
-augroup javascript_folding
-    au!
-    au FileType javascript setlocal foldmethod=syntax
-augroup END
+" augroup javascript_folding
+"     au!
+"     au FileType javascript setlocal foldmethod=syntax
+" augroup END
 
 " coc go
 autocmd BufWritePre *.go :call CocAction('organizeImport')
+
+" vim floaterm
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
+let g:floaterm_autoclose = 2
+" nnoremap   <silent>   <F7>    :FloatermNew<CR>
+" tnoremap   <silent>   <F7>    <C-\><C-n>:FloatermNew<CR>
+" nnoremap   <silent>   <F8>    :FloatermPrev<CR>
+" tnoremap   <silent>   <F8>    <C-\><C-n>:FloatermPrev<CR>
+" nnoremap   <silent>   <F9>    :FloatermNext<CR>
+" tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermNext<CR>
+" nnoremap   <silent>   <F12>   :FloatermToggle<CR>
+" tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
+
+
+" easymotion
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
