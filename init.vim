@@ -32,6 +32,8 @@ Plug 'voldikss/vim-floaterm'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'kdheepak/lazygit.nvim', { 'branch': 'nvim-v0.4.3' }
+Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
+Plug 'iamcco/clock.nvim'
 
 " by default, if you open tsx file, neovim does not show syntax colors
 " vim-tsx will do all the coloring for jsx in the .tsx file
@@ -285,3 +287,45 @@ au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
 " setup mapping to call :LazyGit
 nnoremap <silent> <leader>lg :LazyGit<CR>
+
+" 延迟启动coc
+let g:coc_start_at_startup=0
+function! CocTimerStart(timer)
+    exec "CocStart"
+endfunction
+call timer_start(500,'CocTimerStart',{'repeat':1})
+
+" coc大文件不启动
+let g:trigger_size = 0.5 * 1048576
+
+augroup hugefile
+  autocmd!
+  autocmd BufReadPre *
+        \ let size = getfsize(expand('<afile>')) |
+        \ if (size > g:trigger_size) || (size == -2) |
+        \   echohl WarningMsg | echomsg 'WARNING: altering options for this huge file!' | echohl None |
+        \   exec 'CocDisable' |
+        \ else |
+        \   exec 'CocEnable' |
+        \ endif |
+        \ unlet size
+augroup END
+
+" nvim clock
+" auto enable when neovim start
+let g:clockn_enable = 1
+
+" config the clock's color
+let g:clockn_color = '#000000'
+
+" config opacity of floating window background
+" 0-100 from fully opaque to transparent
+" default is 100
+let g:clockn_winblend = 100
+
+" or use the ClockNormal highlight group
+highlight ClockNormal guifg=#000000
+
+" position distance to top and right
+let g:clockn_to_top = 1
+let g:clockn_to_right = 1
